@@ -1,25 +1,49 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import { getArticles } from './services/news-api';
+import Articles from './components/Articles'
+import Article from './components/Article'
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
+class App extends Component {
+  state = {
+    articles: [],
+  };
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  getArticle = (idx) => {
+    return this.state.articles[idx];
+  }
+
+  async componentDidMount() {
+    const result =  await getArticles();
+    this.setState({
+      articles: result.articles
+    });
+    console.log(result)
+  }
+
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">TOP HEADLINES CANADA</header>
+      <Switch>
+      <Route exact path='/' render={(props) =>
+          <Articles
+            articles = {this.state.articles}/>
+      } />
+      <Route exact path='/article/:idx' render={(props) =>
+          <Article 
+            {...props}
+            getArticle={this.getArticle}/>
+      } />
+      </Switch>
     </div>
-  );
+    
+   
+    );
+  }
 }
 
 export default App;
+
+
