@@ -3,6 +3,11 @@
   height: 100vh;
 }
 
+#login{
+  background-color: #282c34;
+  color: white;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 7vh;
@@ -32,3 +37,4 @@
   text-decoration: none;
   font-size: 20px;
 }
+

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { getArticles } from './services/news-api';
 import Articles from './components/Articles'
 import Article from './components/Article'
+import LoginPage from './components/LoginPage'
 import { Route, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './App.css';
 class App extends Component {
   state = {
@@ -21,11 +23,14 @@ class App extends Component {
     console.log(result)
   }
 
-
+  
   render() {
+
     return (
       <div className="App">
-        <header className="App-header">TOP HEADLINES CANADA</header>
+        <header className="App-header">TOP HEADLINES CANADA </header>
+        <Link to='/loginPage'> Login</Link>
+
       <Switch>
       <Route exact path='/' render={(props) =>
           <Articles
@@ -35,6 +40,12 @@ class App extends Component {
           <Article 
             {...props}
             getArticle={this.getArticle}/>
+      } />
+      <Route exact path='/loginPage' render={(props) =>
+        <LoginPage
+          {...props}
+          userName={this.state.userName}
+        />
       } />
       </Switch>
     </div>
